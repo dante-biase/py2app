@@ -19,7 +19,7 @@ from callbacks import *
               callback=check_icon_file,
               help="icon to give the app")
 @click.option("-d", "--destination_directory",
-              default="bin",
+              default=None,
               callback=check_destination_directory,
               help="directory to create the app in")
 def main(py_file, icon_file, destination_directory):
@@ -32,7 +32,10 @@ def main(py_file, icon_file, destination_directory):
 		py_file = Path(py_file)
 		py_file_parent_directory = Path(dirname(py_file.absolute()))
 		app_name = f"{py_file.stem}.app"
-		app_target_path = f"{destination_directory}/{app_name}"
+		if not destination_directory:
+			app_target_path = f"{py_file_parent_directory.absolute()}/{app_name}"
+		else:
+			app_target_path = f"{destination_directory}/{app_name}"
 
 		# ------------------------------------------- check app target path --------------------------------------------
 		if exists(app_target_path):
@@ -72,10 +75,6 @@ def main(py_file, icon_file, destination_directory):
 	except Exception as error:	# TODO: specify Exception
 
 		# ---------------------------------------- cleanup on error before exit ----------------------------------------
-		bin_directory = f"{owd}/bin"
-		if exists(bin_directory):
-			rmtree(bin_directory)
-
 		if exists(temporary_directory):
 			rmtree(temporary_directory)
 
