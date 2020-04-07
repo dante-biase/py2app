@@ -4,6 +4,7 @@ from os import getcwd, mkdir, chdir, remove
 from os.path import dirname
 from shutil import rmtree, copytree
 from subprocess import call
+from tempfile import mkdtemp
 
 import click
 
@@ -23,7 +24,8 @@ from callbacks import *
               help="directory to create the app in")
 def main(py_file, icon_file, destination_directory):
 
-	cwd = getcwd()  # save copy of current working directory to create absolute path in case of runtime error
+	owd = getcwd()  # save copy of original working directory to create absolute path in case of runtime error
+	temporary_directory = mkdtemp()
 
 	try:
 		# -------------------------------------------- setup app variables ---------------------------------------------
@@ -44,12 +46,8 @@ def main(py_file, icon_file, destination_directory):
 				exit(0)
 		
 		# --------------------- create app by isolating PyInstaller output in temporary directory ----------------------
-		if exists("temp"):
-			rmtree("temp")
-
-		mkdir("temp")
-		copytree(py_file_parent_directory.absolute(), f"temp/{py_file_parent_directory.name}")
-		chdir("temp")
+		copytree(py_file_parent_directory.absolute(), f"{temporary_directory}/{py_file_parent_directory.name}")
+		chdir(temporary_directory)
 
 		call(
 			["pyinstaller", f"{py_file_parent_directory.name}/{py_file.name}", "-i", icon_file, "--windowed", 
@@ -60,13 +58,13 @@ def main(py_file, icon_file, destination_directory):
 			'''delete default icon created by PyInstaller so app icon defaults to system default'''
 			remove(f"dist/{app_name}/Contents/Resources/icon-windowed.icns")	
 																			
-		chdir("..")
+		chdir(owd)
 
 		# ------------------------------------- extract app to target destination --------------------------------------
-		copytree(f"temp/dist/{app_name}", app_target_path)
+		copytree(f"{temporary_directory}/dist/{app_name}", app_target_path)
 
 		# ------------------------------------------------- cleanup ----------------------------------------------------
-		rmtree("temp")
+		rmtree(temporary_directory)
 
 		# --------------------------------------------- show app in finder ---------------------------------------------
 		call(["open", "-R", app_target_path])
@@ -74,13 +72,12 @@ def main(py_file, icon_file, destination_directory):
 	except Exception as error:	# TODO: specify Exception
 
 		# ---------------------------------------- cleanup on error before exit ----------------------------------------
-		bin_directory = f"{cwd}/bin"
+		bin_directory = f"{owd}/bin"
 		if exists(bin_directory):
 			rmtree(bin_directory)
 
-		temp_directory = f"{cwd}/temp"		
-		if exists(temp_directory):
-			rmtree(temp_directory)
+		if exists(temporary_directory):
+			rmtree(temporary_directory)
 
 		raise Exception(repr(error))
 
