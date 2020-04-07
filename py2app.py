@@ -29,8 +29,8 @@ def main(py_file, icon_file, destination_directory):
 
 	try:
 		# -------------------------------------------- setup app variables ---------------------------------------------
-		py_file_parent_directory = Path(dirname(py_file))
 		py_file = Path(py_file)
+		py_file_parent_directory = Path(dirname(py_file.absolute()))
 		app_name = f"{py_file.stem}.app"
 		app_target_path = f"{destination_directory}/{app_name}"
 
