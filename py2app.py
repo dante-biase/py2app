@@ -1,6 +1,7 @@
 #!/usr/local/bin/python3
 
 from os import getcwd, mkdir, chdir, remove
+from os.path import dirname
 from shutil import rmtree, copytree
 from subprocess import call
 
@@ -26,6 +27,7 @@ def main(py_file, icon_file, destination_directory):
 
 	try:
 		# -------------------------------------------- setup app variables ---------------------------------------------
+		py_file_parent_directory = Path(dirname(py_file))
 		py_file = Path(py_file)
 		app_name = f"{py_file.stem}.app"
 		app_target_path = f"{destination_directory}/{app_name}"
@@ -42,9 +44,18 @@ def main(py_file, icon_file, destination_directory):
 				exit(0)
 		
 		# --------------------- create app by isolating PyInstaller output in temporary directory ----------------------
+		if exists("temp"):
+			rmtree("temp")
+
 		mkdir("temp")
+		copytree(py_file_parent_directory.absolute(), f"temp/{py_file_parent_directory.name}")
 		chdir("temp")
-		call(["pyinstaller", py_file.absolute(), "-i", icon_file, "--windowed"])
+
+		call(
+			["pyinstaller", f"{py_file_parent_directory.name}/{py_file.name}", "-i", icon_file, "--windowed", 
+			"--hidden-import", "pkg_resources.py2_warn"]
+		)
+
 		if not icon_file:
 			'''delete default icon created by PyInstaller so app icon defaults to system default'''
 			remove(f"dist/{app_name}/Contents/Resources/icon-windowed.icns")	
