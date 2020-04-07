@@ -3,7 +3,7 @@
 
 # py2app
 
-**py2app** is a hassle-free, command-line-tool that allows you to easily convert Python files/projects to Mac OS Applications in a single line of code.
+**py2app** is a hassle-free, command-line-tool that allows you to easily convert Python files/projects into Mac OS Applications with a single line of code.
 
 >py2app **is** a streamlined version of and built from: [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/).
 
