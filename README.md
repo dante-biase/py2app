@@ -7,7 +7,7 @@
 
 >py2app **is** a streamlined version of and built from: [PyInstaller](https://pyinstaller.readthedocs.io/en/stable/).
 
->py2app **is not** to be confused with [py2app](https://bitbucket.org/ronaldoussoren/py2app/src/default/). 
+>py2app **is not** to be confused with this [py2app](https://bitbucket.org/ronaldoussoren/py2app/src/default/). 
 
 ## py2app vs PyInstaller?
 - **minimal** command-line-interface
