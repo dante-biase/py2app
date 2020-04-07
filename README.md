@@ -24,17 +24,15 @@
 
 ## Installation
 
+### Homebrew
 ```bash
-$ git clone https://github.com/dante-biase/py2app.git
-$ cd py2app
-$ pip3 install -r requirements.txt
-$ chmod +x py2app.py
+$ brew install dante-biase/x2appUtils/py2app
 ```
 
 ## Usage
 
 ```bash
-$ ./py2app.py PY_FILE [OPTIONS]
+$ py2app PY_FILE [OPTIONS]
 ```
 
 ### PY_FILE
