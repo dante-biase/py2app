@@ -22,18 +22,13 @@
 - [PyInstaller](https://github.com/pyinstaller/pyinstaller)
 - [Click](https://github.com/pallets/click)
 
-## Installation
+## Installation and Usage
 
-### Homebrew
-```bash
-$ brew install dante-biase/x2appUtils/py2app
-```
+|          	| Installation                                                                                                                          	| Usage                           	|
+|----------	|---------------------------------------------------------------------------------------------------------------------------------------	|---------------------------------	|
+| **Homebrew** 	| $ brew install dante-biase/x2appUtils/py2app                                                                                          	| $ py2app PY_FILE [OPTIONS]      	|
+| **Manual**   	| $ git clone https://github.com/dante-biase/py2app.git<br>$ cd py2app<br>$ pip3 install -r requirements.txt<br>$ chmod +x py2app.py 	| $ ./py2app.py PY_FILE [OPTIONS] 	|
 
-## Usage
-
-```bash
-$ py2app PY_FILE [OPTIONS]
-```
 
 ### PY_FILE
 > specifies the py file to be converted into an application, required
