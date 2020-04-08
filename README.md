@@ -42,7 +42,7 @@
 ### NOTES
 1. the output app will be named with the stem of `PY_FILE`
 2. if your app uses any **resources**:
-    * move any/all resources into a new directory called "resources"
+    * move all resources into a new directory called "resources"
     * place "resources" into the same directory as `PY_FILE`
     * update any references to files within "resources" in `PY_FILE`
 3. if `destination_directory` is not specified, the app will be placed in the same directory as `PY_FILE`
