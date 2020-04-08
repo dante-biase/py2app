@@ -80,7 +80,6 @@ def main(py_file, icon_file, destination_directory):
 			file.write(bytes(py2app_header_script + original_script, "ascii"))
 
 		# -------------------------------------------- execute pyinstaller ---------------------------------------------
-		
 		pyinstaller_call = ["pyinstaller", py_file_copy]
 		pyinstaller_arguments = ["--windowed", "--hidden-import", "pkg_resources.py2_warn", "-i", icon_file]		
 		
