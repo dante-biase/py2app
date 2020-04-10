@@ -53,7 +53,7 @@
        from py2x import Resources
 4. Update references:
 
-   **EXAMPLE:** if you need to read a text file located within your `resources_directory`:
+   **EXAMPLE:** suppose you need to read a text file located within your `resources_directory`:
           
    change:
    
@@ -68,5 +68,5 @@
        py2app main.py -r path/to/resources [OTHER OPTIONS]
 
 ### Output
-1. the output app will be named with the stem of `PY_FILE`
-2. if `destination_directory` is not specified, the app will be placed in the same directory as `PY_FILE`
+1. The output app will be named with the stem of `PY_FILE`
+2. If `destination_directory` is not specified, the app will be placed in the same directory as `PY_FILE`
