@@ -11,8 +11,8 @@
 
 ## py2app vs PyInstaller?
 - **minimal** command-line-interface
-- **cleaner** output and file handling
 - **easier** resource integration
+- **cleaner** output and file handling
 - **constrained** functionality 
 
 ## Compatibility
