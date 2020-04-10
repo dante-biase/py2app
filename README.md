@@ -21,12 +21,13 @@
 ## Dependencies
 - [PyInstaller](https://github.com/pyinstaller/pyinstaller)
 - [Click](https://github.com/pallets/click)
+- [py2x](https://github.com/dante-biase/py2x)
 
 ## Installation and Usage
 
 |          	| Installation                                                                                                                          	| Usage                           	|
 |----------	|---------------------------------------------------------------------------------------------------------------------------------------	|---------------------------------	|
-| **Homebrew** 	| $ brew install dante-biase/x2appUtils/py2app                                                                                          	| $ py2app PY_FILE [OPTIONS]      	|
+| **Homebrew** 	| $ brew install dante-biase/x2x/py2app                                                                                          	| $ py2app PY_FILE [OPTIONS]      	|
 | **Manual**   	| $ git clone https://github.com/dante-biase/py2app.git<br>$ cd py2app<br>$ pip3 install -r requirements.txt<br>$ chmod +x py2app.py 	| $ ./py2app.py PY_FILE [OPTIONS] 	|
 
 
@@ -35,14 +36,37 @@
 
 ### [OPTIONS]
 ```
+  -r, --resources_directory     TEXT    directory that contains app resources
   -i, --icon_file               TEXT    icon to give the app
   -d, --destination_directory   TEXT    directory to create the app in
   --help                                print this message and exit
 ```
-### NOTES
+## Notes
+
+### Resources
+1. If your app requires any resources, you must consolidate these files into a single directory - `resources_directory`
+2. Install [py2x](https://github.com/dante-biase/py2x)
+
+       $ pip3 install py2x
+3. Add this import statement to any script that references resources you might need:
+      
+       from py2x import Resources
+4. Update references:
+
+   **EXAMPLE:** if you need to read a text file located within your `resources_directory`:
+          
+   change:
+   
+       text_file = open("path/to/resources/file.txt", "r")
+
+   to:
+   
+       text_file = open(Resources.get("file.txt"), "r")`
+
+5. Execute py2app while making sure to pass the path to your `resources_directory` to the `-r` flag:
+   
+       py2app main.py -r path/to/resources [OTHER OPTIONS]
+
+### Output
 1. the output app will be named with the stem of `PY_FILE`
-2. if your app uses any **resources**:
-    * move all resources into a new directory called "resources"
-    * place "resources" into the same directory as `PY_FILE`
-    * update any references to files within "resources" in `PY_FILE`
-3. if `destination_directory` is not specified, the app will be placed in the same directory as `PY_FILE`
+2. if `destination_directory` is not specified, the app will be placed in the same directory as `PY_FILE`
