@@ -1,9 +1,9 @@
 #!/usr/local/bin/python3
 
 from os import getcwd, mkdir, chdir, remove
-from os.path import dirname
+from os.path import dirname, exists
 from shutil import rmtree, copytree
-from subprocess import call
+from subprocess import call, check_output, STDOUT, CalledProcessError
 from tempfile import mkdtemp
 
 import click
@@ -67,7 +67,11 @@ def main(py_file, resources_directory, icon_file, destination_directory):
 		if resources_directory:
 			pyinstaller_arguments += ["--add-data", f"{resources_directory}:resources"]
 
-		call(pyinstaller_call + pyinstaller_arguments)
+		try:
+			check_output(pyinstaller_call + pyinstaller_arguments, stderr=STDOUT)
+		except CalledProcessError as error:
+			print(error.output.decode("UTF8"))
+			exit(1)
 
 		if not icon_file:
 			'''delete default icon created by PyInstaller so app icon defaults to system default'''
