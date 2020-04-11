@@ -1,5 +1,6 @@
 #!/usr/local/bin/python3
 
+from sys import exit
 from os import getcwd, mkdir, chdir, remove
 from os.path import dirname, exists
 from shutil import rmtree, copytree
