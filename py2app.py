@@ -16,7 +16,7 @@ from callbacks import *
                 callback=check_py_file)
 @click.option("-r", "--resources_directory",
               default=None,
-              callback=check_resources_directory,
+              callback=check_directory,
               help="directory that contains resources for binary")
 @click.option("-i", "--icon_file",
               default='',
@@ -24,7 +24,7 @@ from callbacks import *
               help="icon to give the app")
 @click.option("-d", "--destination_directory",
               default=None,
-              callback=check_destination_directory,
+              callback=check_directory,
               help="directory to create the app in")
 def main(py_file, resources_directory, icon_file, destination_directory):
 
